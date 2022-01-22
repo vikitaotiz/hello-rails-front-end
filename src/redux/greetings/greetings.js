@@ -1,16 +1,16 @@
-const GET_GREATING = 'hello-rails-react/greeting/GET_GREATING';
+const GET_GREETING = 'hello-rails-react/greeting/GET_GREETING';
 
 const initialValue = {};
 
 const getGreeting = (payload) => ({
-  type: GET_GREATING,
+  type: GET_GREETING,
   payload,
 });
 
 const getGreetingThunk = () => async (dispatch) => {
-  const request = await fetch('http://localhost:3000/v1/greetings');
+  const request = await fetch('http://localhost:3000/api/v1/greetings');
   const response = await request.json();
-  const data = await response.greeting;
+  const data = await response.data;
   if (data) {
     dispatch(getGreeting(data.message));
   }
@@ -18,7 +18,7 @@ const getGreetingThunk = () => async (dispatch) => {
 
 const greetingReducer = (state = initialValue, action) => {
   switch (action.type) {
-    case GET_GREATING:
+    case GET_GREETING:
       return {
         ...state,
         greetings: action.payload,
